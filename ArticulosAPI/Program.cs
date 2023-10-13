@@ -1,10 +1,16 @@
-using ArticulosAPI.Data;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
+using ArticulosAPI;
+using ArticulosAPI.Data;
+using ArticulosAPI.Repositorios;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+IMapper mapper = MappingConfiguration.RegisterMaps().CreateMapper();
+builder.Services.AddSingleton(mapper);
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddScoped<IArticulosRepositorio, ArticulosRepositorio>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -13,6 +19,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
 
 var app = builder.Build();
 

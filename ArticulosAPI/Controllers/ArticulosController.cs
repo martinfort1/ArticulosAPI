@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ArticulosAPI.Data;
 using ArticulosAPI.Modelos;
+using ArticulosAPI.Modelos.DTOs;
+using ArticulosAPI.Repositorios;
 
 namespace ArticulosAPI.Controllers
 {
@@ -14,25 +16,25 @@ namespace ArticulosAPI.Controllers
     [ApiController]
     public class ArticulosController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
-
-        public ArticulosController(ApplicationDbContext context)
+        private readonly IArticulosRepositorio _repositorio;
+        
+        public ArticulosController(IArticulosRepositorio repositorio)
         {
-            _context = context;
+            _repositorio = repositorio;
         }
 
         // GET: api/Articulos
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Articulo>>> GetArticulos()
+        public async Task<IEnumerable<ArticulosDto>> GetArticulos()
         {
-            return await _context.Articulos.ToListAsync();
+            return await _repositorio.GetArticulos();
         }
 
         // GET: api/Articulos/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Articulo>> GetArticulo(int id)
+        public async Task<ActionResult<ArticulosDto>> GetArticulo(int id)
         {
-            var articulo = await _context.Articulos.FindAsync(id);
+            var articulo = await _repositorio.GetArticulo(id);
 
             if (articulo == null)
             {
@@ -45,64 +47,38 @@ namespace ArticulosAPI.Controllers
         // PUT: api/Articulos/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutArticulo(int id, Articulo articulo)
+        public async Task<ActionResult<Articulos>> PutArticulo(int id, Articulos articulo)
         {
             if (id != articulo.Id)
             {
                 return BadRequest();
             }
+            await _repositorio.PutArticulo(id, articulo);
 
-            _context.Entry(articulo).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ArticuloExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return CreatedAtAction("PUTArticulo", new { id = articulo.Id }, articulo); ;
         }
 
         // POST: api/Articulos
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Articulo>> PostArticulo(Articulo articulo)
+        public async Task<ActionResult<Articulos>> PostArticulo(Articulos articulo)
         {
-            _context.Articulos.Add(articulo);
-            await _context.SaveChangesAsync();
+            await _repositorio.PostArticulo(articulo);
 
-            return CreatedAtAction("GetArticulo", new { id = articulo.Id }, articulo);
+            return CreatedAtAction("POSTArticulo", new { id = articulo.Id }, articulo);
         }
 
         // DELETE: api/Articulos/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteArticulo(int id)
+        public async Task<ActionResult> DeleteArticulo(int id)
         {
-            var articulo = await _context.Articulos.FindAsync(id);
-            if (articulo == null)
-            {
-                return NotFound();
-            }
-
-            _context.Articulos.Remove(articulo);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            await _repositorio.DeleteArticulo(id);
+            return CreatedAtAction("DELETEArticulo", new { id = id });
         }
 
-        private bool ArticuloExists(int id)
+        public bool ArticuloExists(int id)
         {
-            return _context.Articulos.Any(e => e.Id == id);
+            return _repositorio.ArticuloExists(id);
         }
     }
 }

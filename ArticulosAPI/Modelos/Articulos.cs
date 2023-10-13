@@ -2,7 +2,7 @@
 
 namespace ArticulosAPI.Modelos
 {
-    public class Articulo
+    public class Articulos
     {
         [Key]
         public int Id { get; set; }

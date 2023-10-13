@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Marcos\\source\\repos\\ArticulosAPI\\ArticulosAPI\\ArticulosAPI.csproj": {}
+    "C:\\Users\\titif\\source\\repos\\Articulos-API\\ArticulosAPI\\ArticulosAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Marcos\\source\\repos\\ArticulosAPI\\ArticulosAPI\\ArticulosAPI.csproj": {
+    "C:\\Users\\titif\\source\\repos\\Articulos-API\\ArticulosAPI\\ArticulosAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Marcos\\source\\repos\\ArticulosAPI\\ArticulosAPI\\ArticulosAPI.csproj",
+        "projectUniqueName": "C:\\Users\\titif\\source\\repos\\Articulos-API\\ArticulosAPI\\ArticulosAPI.csproj",
         "projectName": "ArticulosAPI",
-        "projectPath": "C:\\Users\\Marcos\\source\\repos\\ArticulosAPI\\ArticulosAPI\\ArticulosAPI.csproj",
-        "packagesPath": "C:\\Users\\Marcos\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Marcos\\source\\repos\\ArticulosAPI\\ArticulosAPI\\obj\\",
+        "projectPath": "C:\\Users\\titif\\source\\repos\\Articulos-API\\ArticulosAPI\\ArticulosAPI.csproj",
+        "packagesPath": "C:\\Users\\titif\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\titif\\source\\repos\\Articulos-API\\ArticulosAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Marcos\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\titif\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -40,9 +40,17 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[12.0.1, )"
+            },
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[12.0.1, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[6.0.10, )"
+              "version": "[7.0.12, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
@@ -69,7 +77,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -81,7 +90,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.305\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }
